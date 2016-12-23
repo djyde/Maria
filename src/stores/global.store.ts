@@ -1,17 +1,18 @@
-import { observable } from 'mobx'
-import Aria2 from 'aria2'
+import { observable, action } from 'mobx'
 
 export class GlobalStore {
-  @observable version: string
+  @observable createTaskModalVisible = false
 
-  constructor (private aria2: Aria2) {
+  @action openCreateTaskModal = () => {
+    this.createTaskModalVisible = true
+  }
+
+  @action closeCreateTaskModal = () => {
+    this.createTaskModalVisible = false
+  }
+
+  constructor () {
   }
 }
 
-export const aria2 = new Aria2({
-  host: 'localhost',
-  port: 6800,
-  path: '/jsonrpc'
-})
-
-export const globalStore = new GlobalStore(aria2)
+export const globalStore = new GlobalStore()

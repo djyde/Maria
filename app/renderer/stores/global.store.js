@@ -6,19 +6,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 const mobx_1 = require('mobx');
-const aria2_1 = require('aria2');
 class GlobalStore {
-    constructor(aria2) {
-        this.aria2 = aria2;
+    constructor() {
+        this.createTaskModalVisible = false;
+        this.openCreateTaskModal = () => {
+            this.createTaskModalVisible = true;
+        };
+        this.closeCreateTaskModal = () => {
+            this.createTaskModalVisible = false;
+        };
     }
 }
 __decorate([
     mobx_1.observable
-], GlobalStore.prototype, "version", void 0);
+], GlobalStore.prototype, "createTaskModalVisible", void 0);
+__decorate([
+    mobx_1.action
+], GlobalStore.prototype, "openCreateTaskModal", void 0);
+__decorate([
+    mobx_1.action
+], GlobalStore.prototype, "closeCreateTaskModal", void 0);
 exports.GlobalStore = GlobalStore;
-exports.aria2 = new aria2_1.default({
-    host: 'localhost',
-    port: 6800,
-    path: '/jsonrpc'
-});
-exports.globalStore = new GlobalStore(exports.aria2);
+exports.globalStore = new GlobalStore();

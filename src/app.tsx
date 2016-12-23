@@ -8,18 +8,20 @@ import {
   MenuDivider
 } from '@blueprintjs/core'
 import FileList from './components/FileList'
-import { DOWNLOAD_STATUS } from './stores/file.store'
 import { aria2Store, Aria2Status } from './stores/aria2.store'
+import { globalStore } from './stores/global.store'
+import CreateTaskModal from './components/CreateTaskModal'
 
 const App = observer(() => {
   return (
     <div className='pt-app pt-dark'>
+      <CreateTaskModal />
       <nav id='navbar' className='pt-navbar draggable'>
         <div className='pt-navbar-group pt-align-left'>
           <div className='pt-navbar-heading'></div>
         </div>
         <div className='pt-navbar-group pt-align-right'>
-          <button className='pt-button pt-minimal pt-icon-cog'></button>
+          <button className='pt-button pt-minimal pt-icon-add' onClick={globalStore.openCreateTaskModal}></button>
         </div>
       </nav>
       <section id='container'>

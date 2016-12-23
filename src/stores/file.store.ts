@@ -5,7 +5,11 @@ import {
 } from '@blueprintjs/core'
 
 export function computedProgress(completed: number, total: number) {
-  return parseFloat((completed / total).toFixed(3))
+  if (completed === 0 || total === 0) {
+    return 0
+  } else {
+    return parseFloat((completed / total).toFixed(3))
+  }
 }
 
 export function toFixed(num: number, count: number = 2) {
@@ -15,14 +19,18 @@ export function toFixed(num: number, count: number = 2) {
 export function parseSize(byte: string, hex: number = 1000): string {
   const byteNum = Number(byte)
   if (byteNum < hex) {
-    return `${toFixed(byteNum, 0)}B`
+    return `${toFixed(byteNum, 1)}B`
   } else if (byteNum > hex && byteNum < hex * hex) {
-    return `${toFixed(byteNum / hex, 0)}KB`
+    return `${toFixed(byteNum / hex, 1)}KB`
   } else if (byteNum > hex * hex) {
-    return `${toFixed(byteNum / hex / hex, 0)}MB`
+    return `${toFixed(byteNum / hex / hex, 1)}MB`
   } else {
-    return `${toFixed(byteNum / hex / hex / hex, 0)}GB`
+    return `${toFixed(byteNum / hex / hex / hex, 1)}GB`
   }
+}
+
+export function parseFileName(path: string) {
+  return path.split('/')[path.split('/').length - 1]
 }
 
 export enum DOWNLOAD_STATUS {
@@ -89,11 +97,13 @@ export class FileStore {
   }
 
   @action stopListen = () => {
-    clearInterval(this.interval)
+    setTimeout(() => {
+      clearInterval(this.interval)
+    }, 1000)
   }
 
-  @action setProgress = () => {
-    this.file.completedLength += 1
+  @computed get filename(): string {
+    return parseFileName(this.file.files[0].path)
   }
 
   @computed get fileSize(): string {

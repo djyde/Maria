@@ -728,8 +728,20 @@ Styleguide colors.schemes.qualitative
   border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
   .file-item:hover {
     background-color: rgba(72, 175, 240, 0.1); }
-  .file-item .size {
+  .file-item .speed {
     color: rgba(0, 0, 0, 0.2);
-    margin-left: .5em; }
+    margin-left: .5em;
+    font-size: .8em; }
+  .file-item .size {
+    font-size: .8em;
+    color: rgba(0, 0, 0, 0.6); }
   .file-item .progress-bar {
     margin-top: 1em; }
+
+.create-task-form .filename-input {
+  width: 100%; }
+
+.create-task-form .url-input {
+  width: 100%;
+  height: 128px;
+  resize: none; }

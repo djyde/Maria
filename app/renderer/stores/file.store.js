@@ -17,7 +17,12 @@ const mobx_1 = require('mobx');
 const aria2_store_1 = require('../stores/aria2.store');
 const core_1 = require('@blueprintjs/core');
 function computedProgress(completed, total) {
-    return parseFloat((completed / total).toFixed(3));
+    if (completed === 0 || total === 0) {
+        return 0;
+    }
+    else {
+        return parseFloat((completed / total).toFixed(3));
+    }
 }
 exports.computedProgress = computedProgress;
 function toFixed(num, count = 2) {
@@ -27,19 +32,23 @@ exports.toFixed = toFixed;
 function parseSize(byte, hex = 1000) {
     const byteNum = Number(byte);
     if (byteNum < hex) {
-        return `${toFixed(byteNum, 0)}B`;
+        return `${toFixed(byteNum, 1)}B`;
     }
     else if (byteNum > hex && byteNum < hex * hex) {
-        return `${toFixed(byteNum / hex, 0)}KB`;
+        return `${toFixed(byteNum / hex, 1)}KB`;
     }
     else if (byteNum > hex * hex) {
-        return `${toFixed(byteNum / hex / hex, 0)}MB`;
+        return `${toFixed(byteNum / hex / hex, 1)}MB`;
     }
     else {
-        return `${toFixed(byteNum / hex / hex / hex, 0)}GB`;
+        return `${toFixed(byteNum / hex / hex / hex, 1)}GB`;
     }
 }
 exports.parseSize = parseSize;
+function parseFileName(path) {
+    return path.split('/')[path.split('/').length - 1];
+}
+exports.parseFileName = parseFileName;
 (function (DOWNLOAD_STATUS) {
     DOWNLOAD_STATUS[DOWNLOAD_STATUS["WAITING"] = 0] = "WAITING";
     DOWNLOAD_STATUS[DOWNLOAD_STATUS["PAUSED"] = 1] = "PAUSED";
@@ -84,10 +93,9 @@ class FileStore {
             }
         };
         this.stopListen = () => {
-            clearInterval(this.interval);
-        };
-        this.setProgress = () => {
-            this.file.completedLength += 1;
+            setTimeout(() => {
+                clearInterval(this.interval);
+            }, 1000);
         };
         this.file = file;
         this.startListen();
@@ -105,6 +113,9 @@ class FileStore {
             default:
                 return core_1.Intent.NONE;
         }
+    }
+    get filename() {
+        return parseFileName(this.file.files[0].path);
     }
     get fileSize() {
         return parseSize(this.file.totalLength);
@@ -138,8 +149,8 @@ __decorate([
     mobx_1.action
 ], FileStore.prototype, "stopListen", void 0);
 __decorate([
-    mobx_1.action
-], FileStore.prototype, "setProgress", void 0);
+    mobx_1.computed
+], FileStore.prototype, "filename", null);
 __decorate([
     mobx_1.computed
 ], FileStore.prototype, "fileSize", null);

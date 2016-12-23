@@ -45,7 +45,7 @@ export class File extends React.Component<IFileProps, {}> {
       <div className='file-item' onDoubleClick={this.fileStore.onDoubleClickFile}>
         <Row>
           <Col>
-            <div className='filename'>{this.fileStore.file.files[0].path}</div>
+            <div className='filename'>{this.fileStore.filename}</div>
           </Col>
         </Row>
         <Row>
@@ -55,10 +55,10 @@ export class File extends React.Component<IFileProps, {}> {
         </Row>
         <Row style={{ marginTop: '1em' }}>
           <Col>
-            <span>{this.fileStore.fileSize}</span>
+            <div className='size'>{this.fileStore.fileSize}</div>
           </Col>
           <Col>
-            {this.fileStore.file.status === 'active' && <div className='size'>/ {this.fileStore.downloadSpeed}</div>}
+            {this.fileStore.file.status === 'active' && <div className='speed'>- {this.fileStore.downloadSpeed}/s</div>}
           </Col>
         </Row>
       </div>

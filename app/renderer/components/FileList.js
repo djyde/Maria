@@ -26,7 +26,7 @@ let File = class File extends React.Component {
         return (React.createElement("div", {className: 'file-item', onDoubleClick: this.fileStore.onDoubleClickFile}, 
             React.createElement(Row_1.default, null, 
                 React.createElement(Col_1.default, null, 
-                    React.createElement("div", {className: 'filename'}, this.fileStore.file.files[0].path)
+                    React.createElement("div", {className: 'filename'}, this.fileStore.filename)
                 )
             ), 
             React.createElement(Row_1.default, null, 
@@ -36,11 +36,12 @@ let File = class File extends React.Component {
             ), 
             React.createElement(Row_1.default, {style: { marginTop: '1em' }}, 
                 React.createElement(Col_1.default, null, 
-                    React.createElement("span", null, this.fileStore.fileSize)
+                    React.createElement("div", {className: 'size'}, this.fileStore.fileSize)
                 ), 
-                React.createElement(Col_1.default, null, this.fileStore.file.status === 'active' && React.createElement("div", {className: 'size'}, 
-                    "/ ", 
-                    this.fileStore.downloadSpeed)))));
+                React.createElement(Col_1.default, null, this.fileStore.file.status === 'active' && React.createElement("div", {className: 'speed'}, 
+                    "- ", 
+                    this.fileStore.downloadSpeed, 
+                    "/s")))));
     }
     renderContextMenu() {
         const openInFinder = () => {
