@@ -4,52 +4,61 @@ import {
   MenuDivider,
   ContextMenuTarget,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@blueprintjs/core'
 import Row from './Row'
 import Col from './Col'
-import { IFile, FileStore } from '../stores/file.store'
+import { FileStore } from '../stores/file.store'
+import { aria2Store } from '../stores/aria2.store'
+import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
+import { shell } from 'electron'
 
-export interface IFileListProps {
-  files: IFile[]
-}
-
-const FileList = ({ files }: IFileListProps) => {
+export const FileList = observer(() => {
   return (
     <div>
-      {files.map(file => {
-        const fileStore = new FileStore(file)
+      {aria2Store.locals.map(file => {
         return (
-          <File key={fileStore.file.gid} fileStore={fileStore} />
+          <File key={file.gid} file={file} />
         )
       })}
     </div>
   )
-}
+})
 
 export interface IFileProps {
-  fileStore: FileStore
+  file: Aria2File
 }
 
 @observer
 @ContextMenuTarget
-class File extends React.Component<IFileProps, {}> {
+export class File extends React.Component<IFileProps, {}> {
+
+  private fileStore: FileStore
+
+  componentWillMount() {
+    this.fileStore = new FileStore(this.props.file)
+  }
+
   render() {
-    const { fileStore } = this.props
     return (
-      <div className='file-item'>
+      <div className='file-item' onDoubleClick={this.fileStore.onDoubleClickFile}>
         <Row>
           <Col>
-            <div className='filename'>{fileStore.file.filename}</div>
-          </Col>
-          <Col>
-            <div className='size'>- {fileStore.fileSize}</div>
+            <div className='filename'>{this.fileStore.file.files[0].path}</div>
           </Col>
         </Row>
         <Row>
           <Col span={1} className='progress-bar'>
-            <ProgressBar value={fileStore.progress} />
+            <ProgressBar className={'pt-no-stripes'} intent={this.fileStore.progressBarIntent} value={this.fileStore.progress} />
+          </Col>
+        </Row>
+        <Row style={{ marginTop: '1em' }}>
+          <Col>
+            <span>{this.fileStore.fileSize}</span>
+          </Col>
+          <Col>
+            {this.fileStore.file.status === 'active' && <div className='size'>/ {this.fileStore.downloadSpeed}</div>}
           </Col>
         </Row>
       </div>
@@ -57,12 +66,15 @@ class File extends React.Component<IFileProps, {}> {
   }
 
   renderContextMenu() {
+    const openInFinder = () => {
+      shell.showItemInFolder(this.fileStore.file.files[0].path)
+    }
     return (
       <Menu>
-        <MenuItem iconName='' text="Open" />
-        <MenuItem iconName='' text="Open in Finder" />
+        <MenuItem iconName='' text='Open' />
+        <MenuItem iconName='' text='Open in Finder' onClick={openInFinder} />
         <MenuDivider />
-        <MenuItem iconName='trash' text="Delete" />
+        <MenuItem iconName='trash' text='Delete' />
       </Menu>
     )
   }

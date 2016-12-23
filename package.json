@@ -7,6 +7,7 @@
     "styles": "node-sass src/styles/index.scss app/styles/index.css --importer node_modules/node-sass-import"
   },
   "dependencies": {
+    "aria2": "^3.0.0",
     "electron": "^1.4.13"
   },
   "devDependencies": {

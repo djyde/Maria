@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { render } from 'react-dom'
+import { observer } from 'mobx-react'
 import config from './config'
 import {
   Menu,
@@ -7,14 +8,10 @@ import {
   MenuDivider
 } from '@blueprintjs/core'
 import FileList from './components/FileList'
-import { DOWNLOAD_STATUS, IFile  } from './stores/file.store'
+import { DOWNLOAD_STATUS } from './stores/file.store'
+import { aria2Store, Aria2Status } from './stores/aria2.store'
 
-const files: IFile[] = [
-  { filename: 'Foo.jpg', path: '/path/to', status: DOWNLOAD_STATUS.COMPLETE, source: 'https://github.com/egoist/observer/archive/master.zip', gid: 'foo', totalLength: 10000, completedLength: 100, downloadSpeed: 200 },
-  { filename: 'Bar.jpg', path: '/path/to/bar', status: DOWNLOAD_STATUS.PAUSED, source: 'https://github.com/egoist/observer/archive/master.zip', gid: 'bar', totalLength: 1000, completedLength: 2, downloadSpeed: 200 }
-]
-
-const App = () => {
+const App = observer(() => {
   return (
     <div className='pt-app pt-dark'>
       <nav id='navbar' className='pt-navbar draggable'>
@@ -30,12 +27,12 @@ const App = () => {
           <SideMenu />
         </div>
         <div id='content'>
-          <FileList files={files} />
+          { aria2Store.status === Aria2Status.OPENED ? <FileList /> : <div>Disconnect</div>}
         </div>
       </section>
     </div>
   )
-}
+})
 
 const SideMenu = () => {
   return (
