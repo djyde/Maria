@@ -724,7 +724,8 @@ Styleguide colors.schemes.qualitative
   color: #000;
   cursor: default;
   padding: 1em;
-  -webkit-user-select: none; }
+  -webkit-user-select: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
   .file-item:hover {
     background-color: rgba(72, 175, 240, 0.1); }
   .file-item .size {

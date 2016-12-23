@@ -6,11 +6,12 @@ import {
   MenuItem,
   MenuDivider
 } from '@blueprintjs/core'
-import FileList, { IFile, DOWNLOAD_STATUS } from './components/FileList'
+import FileList from './components/FileList'
+import { DOWNLOAD_STATUS, IFile  } from './stores/file.store'
 
 const files: IFile[] = [
-  { filename: 'Foo.jpg', path: '/path/to', size: 102, status: DOWNLOAD_STATUS.FINISHED, source: 'https://github.com/egoist/observer/archive/master.zip', progress: 0 },
-  { filename: 'Bar.jpg', path: '/path/to/bar', size: 12212, status: DOWNLOAD_STATUS.PAUSE, source: 'https://github.com/egoist/observer/archive/master.zip', progress: 0 }
+  { filename: 'Foo.jpg', path: '/path/to', status: DOWNLOAD_STATUS.COMPLETE, source: 'https://github.com/egoist/observer/archive/master.zip', gid: 'foo', totalLength: 10000, completedLength: 100, downloadSpeed: 200 },
+  { filename: 'Bar.jpg', path: '/path/to/bar', status: DOWNLOAD_STATUS.PAUSED, source: 'https://github.com/egoist/observer/archive/master.zip', gid: 'bar', totalLength: 1000, completedLength: 2, downloadSpeed: 200 }
 ]
 
 const App = () => {
