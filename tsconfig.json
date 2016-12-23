@@ -4,6 +4,11 @@
     "module": "commonjs",
     "rootDir": "src",
     "outDir": "app/renderer",
-    "jsx": "react"
-  }
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "strictNullChecks": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

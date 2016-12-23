@@ -1,0 +1,734 @@
+@charset "UTF-8";
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+/**
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Correct the line height in all browsers.
+ * 3. Prevent adjustments of font size after orientation changes in
+ *    IE on Windows Phone and in iOS.
+ */
+/* Document
+   ========================================================================== */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  line-height: 1.15;
+  /* 2 */
+  -ms-text-size-adjust: 100%;
+  /* 3 */
+  -webkit-text-size-adjust: 100%;
+  /* 3 */ }
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+body {
+  margin: 0; }
+
+/**
+ * Add the correct display in IE 9-.
+ */
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block; }
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in IE.
+ */
+figcaption,
+figure,
+main {
+  /* 1 */
+  display: block; }
+
+/**
+ * Add the correct margin in IE 8.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */ }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+a {
+  background-color: transparent;
+  /* 1 */
+  -webkit-text-decoration-skip: objects;
+  /* 2 */ }
+
+/**
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+a:active,
+a:hover {
+  outline-width: 0; }
+
+/**
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */ }
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+b,
+strong {
+  font-weight: inherit; }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder; }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+mark {
+  background-color: #ff0;
+  color: #000; }
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ */
+audio,
+video {
+  display: inline-block; }
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+img {
+  border-style: none; }
+
+/**
+ * Hide the overflow in IE.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */ }
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible; }
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none; }
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *    controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */ }
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+/**
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ }
+
+/**
+ * 1. Add the correct display in IE 9-.
+ * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */ }
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */ }
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ */
+details,
+menu {
+  display: block; }
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item; }
+
+/* Scripting
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ */
+canvas {
+  display: inline-block; }
+
+/**
+ * Add the correct display in IE.
+ */
+template {
+  display: none; }
+
+/* Hidden
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10-.
+ */
+[hidden] {
+  display: none; }
+
+/*
+Colors
+
+Hex values for these colors can be accessed in JavaScript. The global version of the module exposes
+the `Blueprint.Colors` object. In CommonJS, you may `import { Colors } from "@blueprintjs/core"`.
+
+Styleguide colors
+*/
+/*
+Gray scale
+
+Black, white and everything in between. The gray scale should be used for
+the main UI frame: containers, headers, sections, boxes, etc.
+If you need to call attention to a particular element (buttons, icons, tooltips, etc.),
+use one of the [core colors](#colors.core).
+
+@react-docs GrayscalePalette
+
+Weight: -1
+
+Styleguide colors.grays
+*/
+/*
+Core colors
+
+Core colors are reserved for user interface design. Use these to help call
+attention to specific UI elements, such as buttons, callouts, icons, etc.
+Each core color is mapped to what we call a __visual intent__. We use intents
+to convey the status of UI elements:
+
+- _Blue_ (intent: primary) elevates elements from the typical gray scale UI frame.
+- _Green_ (intent: success) indicates successful operations.
+- _Orange_ (intent: warning) indicates warnings and intermediate states.
+- _Red_ (intent: danger) indicates errors and potentially destructive operations.
+
+Core colors are also designed to:
+
+- go well together and be used alongside each other in any application.
+- adhere to [WCAG 2.0](https://www.w3.org/TR/WCAG20/) standards, and therefore are
+  highly accessible to visually impaired and color blind users.
+
+@react-docs CoreColorsPalette
+
+Styleguide colors.core
+*/
+/*
+Extended colors
+
+Extended colors should typically be reserved for data visualizations: any time
+you need to represent data of some sort, you can use these.
+These colors are less strict on [WCAG 2.0](https://www.w3.org/TR/WCAG20/)
+accessibility standards and should therefore not be used for typical user
+interface design — take a look at [core colors](#colors.core) instead.
+
+@react-docs ExtendedColorsPalette
+
+Styleguide colors.extended
+*/
+/*
+Color aliases
+
+These variables are semantic aliases of our [colors](#colors). They are used throughout Blueprint itself to ensure
+consistent color usage across components.
+
+<table class=pt-table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><div class="docs-color-bubble alias-intent-primary"></div></td>
+      <td><code>$pt-intent-primary</code></td>
+      <td>Primary intent color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-intent-success"></div></td>
+      <td><code>$pt-intent-success</code></td>
+      <td>Success intent color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-intent-warning"></div></td>
+      <td><code>$pt-intent-warning</code></td>
+      <td>Warning intent color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-intent-danger"></div></td>
+      <td><code>$pt-intent-danger</code></td>
+      <td>Danger intent color</td>
+    </tr>
+
+    <tr>
+      <td><div class="docs-color-bubble alias-app-background-color"></div></td>
+      <td><code>$pt-app-background-color</code></td>
+      <td>Application background color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-app-background-color"></div></td>
+      <td><code>$pt-dark-app-background-color</code></td>
+      <td>Dark theme application background color</td>
+    </tr>
+
+    <tr>
+      <td><div class="docs-color-bubble alias-text-color"></div></td>
+      <td><code>$pt-text-color</code></td>
+      <td>Default text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-text-color-muted"></div></td>
+      <td><code>$pt-text-color-muted</code></td>
+      <td>Muted text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-text-color-disabled"></div></td>
+      <td><code>$pt-text-color-disabled</code></td>
+      <td>Disabled text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-heading-color"></div></td>
+      <td><code>$pt-heading-color</code></td>
+      <td>Text color for headers</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-link-color"></div></td>
+      <td><code>$pt-link-color</code></td>
+      <td>Text color for links</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-text-color"></div></td>
+      <td><code>$pt-dark-text-color</code></td>
+      <td>Dark theme default text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-text-color-muted"></div></td>
+      <td><code>$pt-dark-text-color-muted</code></td>
+      <td>Dark theme muted text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-text-color-disabled"></div></td>
+      <td><code>$pt-dark-text-color-disabled</code></td>
+      <td>Dark theme disabled text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-heading-color"></div></td>
+      <td><code>$pt-dark-heading-color</code></td>
+      <td>Dark theme text color for headers</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-link-color"></div></td>
+      <td><code>$pt-dark-link-color</code></td>
+      <td>Dark theme text color for links</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-text-selection-color"></div></td>
+      <td><code>$pt-text-selection-color</code></td>
+      <td>Text selection color</td>
+    </tr>
+
+    <tr>
+      <td><div class="docs-color-bubble alias-icon-color"></div></td>
+      <td><code>$pt-icon-color</code></td>
+      <td>Default icon color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-icon-color-hover"></div></td>
+      <td><code>$pt-icon-color-hover</code></td>
+      <td>Hovered icon color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-icon-color-disabled"></div></td>
+      <td><code>$pt-icon-color-disabled</code></td>
+      <td>Disabled icon color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-icon-color-selected"></div></td>
+      <td><code>$pt-icon-color-selected</code></td>
+      <td>Selected icon color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-icon-color"></div></td>
+      <td><code>$pt-dark-icon-color</code></td>
+      <td>Dark theme default icon color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-icon-color-hover"></div></td>
+      <td><code>$pt-dark-icon-color-hover</code></td>
+      <td>Dark theme hovered icon color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-icon-color-disabled"></div></td>
+      <td><code>$pt-dark-icon-color-disabled</code></td>
+      <td>Dark theme disabled icon color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-icon-color-selected"></div></td>
+      <td><code>$pt-dark-icon-color-selected</code></td>
+      <td>Dark theme selected icon color</td>
+    </tr>
+
+    <tr>
+      <td><div class="docs-color-bubble alias-divider-black"></div></td>
+      <td><code>$pt-divider-black</code></td>
+      <td>Black divider color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-divider-black"></div></td>
+      <td><code>$pt-dark-divider-black</code></td>
+      <td>Dark theme black divider color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-divider-white"></div></td>
+      <td><code>$pt-dark-divider-white</code></td>
+      <td>Dark theme white divider color</td>
+    </tr>
+
+    <tr>
+      <td><div class="docs-color-bubble alias-code-text-color"></div></td>
+      <td><code>$pt-code-text-color</code></td>
+      <td>Code text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-code-background-color"></div></td>
+      <td><code>$pt-code-background-color</code></td>
+      <td>Code background color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-code-text-color"></div></td>
+      <td><code>$pt-dark-code-text-color</code></td>
+      <td>Dark theme code text color</td>
+    </tr>
+    <tr>
+      <td><div class="docs-color-bubble alias-dark-code-background-color"></div></td>
+      <td><code>$pt-dark-code-background-color</code></td>
+      <td>Dark theme code background color</td>
+    </tr>
+  </tbody>
+</table>
+
+Styleguide variables.colors
+*/
+/*
+Color schemes
+
+Use the following color scheme generators to produce color schemes for your data visualizations.
+First, choose the kind of scheme based on the type of your data, then customize the number of values
+using the forms below. Finally, copy the colors array into your application and make it live!
+
+The following schemes have been carefully crafted to be visually striking and easily understandable
+while remaining accessible to visually impaired and color blind users.
+
+Styleguide colors.schemes
+*/
+/*
+Sequential color schemes
+
+Sequential color schemes imply order and are best suited for representing data that
+ranges from low-to-high values either on an ordinal or on a numerical scale.
+
+Weight: -1
+
+@react-docs SequentialSchemePalette
+
+Styleguide colors.schemes.sequential
+*/
+/*
+Diverging color schemes
+
+Diverging color schemes put equal emphasis on mid-range values and extremes
+at both ends of the data range.
+
+@react-docs DivergingSchemePalette
+
+Styleguide colors.schemes.diverging
+*/
+/*
+Qualitative color schemes
+
+Qualitative color schemes use a series of unrelated colors to create a
+scheme that does not imply order, merely difference in kind.
+
+@react-docs QualitativeSchemePalette
+
+Styleguide colors.schemes.qualitative
+*/
+.draggable {
+  -webkit-app-region: drag;
+  -webkit-user-select: none; }
+
+#app {
+  height: 100vh; }
+
+.pt-app {
+  height: 100%;
+  display: flex;
+  flex-direction: column; }
+
+#container {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row; }
+
+#sidebar {
+  flex: 1; }
+
+#content {
+  display: flex;
+  flex-direction: column;
+  flex: 5; }
+
+#sidebar .pt-menu {
+  border-radius: 0;
+  height: 100%; }
+
+.file-item {
+  color: #000;
+  cursor: default;
+  padding: 1em;
+  -webkit-user-select: none; }
+  .file-item:hover {
+    background-color: rgba(72, 175, 240, 0.1); }
+  .file-item .size {
+    color: rgba(0, 0, 0, 0.2);
+    margin-left: .5em; }
+  .file-item .progress-bar {
+    margin-top: 1em; }

@@ -3,14 +3,24 @@
   "version": "0.0.0",
   "main": "app/main/index.js",
   "scripts": {
-    "app": "electron ."
+    "app": "electron .",
+    "styles": "node-sass src/styles/index.scss app/styles/index.css --importer node_modules/node-sass-import"
   },
   "dependencies": {
     "electron": "^1.4.13"
   },
   "devDependencies": {
+    "@blueprintjs/core": "^1.4.0",
+    "@types/react": "^0.14.55",
+    "@types/react-dom": "^0.14.19",
+    "bourbon": "^4.2.7",
+    "node-sass": "^4.1.1",
+    "node-sass-import": "^1.1.1",
+    "normalize.css": "^5.0.0",
     "react": "^15.4.1",
+    "react-addons-css-transition-group": "^15.4.1",
     "react-dom": "^15.4.1",
+    "scss": "^0.2.4",
     "typescript": "^2.1.4"
   }
 }

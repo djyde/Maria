@@ -1,0 +1,75 @@
+@import "normalize.css";
+@import "@blueprintjs/core/src/common/colors";
+
+.draggable {
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
+
+#app {
+  height: 100vh;
+}
+
+.pt-navbar {
+  // padding-left: 2em;
+}
+
+.pt-app {
+  height: 100%;
+  display: flex;
+  flex-direction: column
+}
+
+#container {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+#navbar {
+  // flex: 1;
+}
+
+#sidebar {
+  flex: 1
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+}
+
+#sidebar .pt-menu {
+  border-radius: 0;
+  height: 100%;
+}
+
+.file-item {
+  color: #000;
+  cursor: default;
+  padding: 1em;
+  -webkit-user-select: none;
+
+  &:hover {
+    background-color: rgba(#48aff0, .1);
+  }
+
+  .filename {
+    // font-weight: bold;
+  }
+  
+  .path {
+
+  }
+
+  .size {
+    color: rgba(#000, .2);
+    margin-left: .5em;
+  }
+
+  .progress-bar {
+    margin-top: 1em;
+  }
+}
