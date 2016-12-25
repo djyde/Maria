@@ -82,8 +82,12 @@
 }
 
 .create-task-form {
-  .filename-input {
+
+  input {
     width: 100%;
+  }
+
+  .filename-input {
   }
 
   .url-input {

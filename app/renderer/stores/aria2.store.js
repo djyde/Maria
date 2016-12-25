@@ -30,6 +30,12 @@ class Aria2Store {
         this.actives = [];
         this.stoppeds = [];
         this.locals = [];
+        this.getGlobalOption = () => __awaiter(this, void 0, void 0, function* () {
+            const options = yield this.aria2.getGlobalOption();
+            mobx_1.runInAction('get global option success', () => {
+                this.globalOption = options;
+            });
+        });
         this.getLocals = () => __awaiter(this, void 0, void 0, function* () {
             const actives = yield this.aria2.tellActive();
             const waitings = yield this.aria2.tellWaiting(0, 10);
@@ -67,6 +73,7 @@ class Aria2Store {
             this.status = Aria2Status.OPENED;
             core_1.Toaster.create().show({ message: 'Aria2 connect success' });
             this.getLocals();
+            this.getGlobalOption();
         };
         this.aria2.onclose = () => {
             this.status = Aria2Status.CLOSED;
@@ -88,7 +95,13 @@ __decorate([
 ], Aria2Store.prototype, "stoppeds", void 0);
 __decorate([
     mobx_1.observable
+], Aria2Store.prototype, "globalOption", void 0);
+__decorate([
+    mobx_1.observable
 ], Aria2Store.prototype, "locals", void 0);
+__decorate([
+    mobx_1.action
+], Aria2Store.prototype, "getGlobalOption", void 0);
 __decorate([
     mobx_1.action
 ], Aria2Store.prototype, "getLocals", void 0);

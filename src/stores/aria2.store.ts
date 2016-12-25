@@ -12,6 +12,10 @@ export interface IAria2Option {
   path: '/jsonrpc'
 }
 
+export interface IAria2GlobalOption {
+  dir: string
+}
+
 export enum Aria2Status {
   WAITING, OPENED, CLOSED, ERROR
 }
@@ -22,6 +26,7 @@ export class Aria2Store {
   @observable waitings: Aria2File[] = []
   @observable actives: Aria2File[] = []
   @observable stoppeds: Aria2File[] = []
+  @observable globalOption: IAria2GlobalOption
 
   @observable locals: Aria2File[] = []
 
@@ -34,12 +39,20 @@ export class Aria2Store {
       this.status = Aria2Status.OPENED
       Toaster.create().show({ message: 'Aria2 connect success' })
       this.getLocals()
+      this.getGlobalOption()
     }
 
     this.aria2.onclose = () => {
       this.status = Aria2Status.CLOSED
       Toaster.create().show({ message: 'Aria2 connect error' })
     }
+  }
+
+  @action getGlobalOption = async () => {
+    const options: IAria2GlobalOption = await this.aria2.getGlobalOption()
+    runInAction('get global option success', () => {
+      this.globalOption = options
+    })
   }
 
   @action getLocals = async () => {

@@ -738,7 +738,7 @@ Styleguide colors.schemes.qualitative
   .file-item .progress-bar {
     margin-top: 1em; }
 
-.create-task-form .filename-input {
+.create-task-form input {
   width: 100%; }
 
 .create-task-form .url-input {
