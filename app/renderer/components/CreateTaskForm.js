@@ -40,7 +40,7 @@ class TaskFormStore {
             global_store_1.globalStore.closeCreateTaskModal();
         });
         this.choosePath = () => {
-            dialog.showOpenDialog({ properties: ['openDirectory', 'createDirectory'] }, (paths) => {
+            dialog.showOpenDialog({ properties: ['openDirectory', 'createDirectory'], defaultPath: this.pathInputRef.value }, (paths) => {
                 if (paths) {
                     this.pathInputRef.value = paths[0];
                 }

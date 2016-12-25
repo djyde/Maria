@@ -36,7 +36,7 @@ export class TaskFormStore {
   }
 
   @action choosePath = () => {
-    dialog.showOpenDialog({ properties: ['openDirectory', 'createDirectory'] }, (paths: string | undefined) => {
+    dialog.showOpenDialog({ properties: ['openDirectory', 'createDirectory'], defaultPath: this.pathInputRef.value }, (paths: string | undefined) => {
       if (paths) {
         this.pathInputRef.value = paths[0]
       }
