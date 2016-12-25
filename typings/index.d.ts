@@ -34,3 +34,5 @@ declare enum Aria2ErrorCode {
   RESUME_NOT_SUPPORT,
   DISK_SPACE_NOT_ENOUGH
 }
+
+declare var global: any

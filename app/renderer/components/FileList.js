@@ -11,6 +11,7 @@ const Row_1 = require('./Row');
 const Col_1 = require('./Col');
 const file_store_1 = require('../stores/file.store');
 const aria2_store_1 = require('../stores/aria2.store');
+const RemoveConfirmDialog_1 = require('./RemoveConfirmDialog');
 const mobx_react_1 = require('mobx-react');
 const electron_1 = require('electron');
 exports.FileList = mobx_react_1.observer(() => {
@@ -21,9 +22,11 @@ exports.FileList = mobx_react_1.observer(() => {
 let File = class File extends React.Component {
     componentWillMount() {
         this.fileStore = new file_store_1.FileStore(this.props.file);
+        this.removeConfirmStore = new RemoveConfirmDialog_1.RemoveConfirmStore(this.fileStore);
     }
     render() {
         return (React.createElement("div", {className: 'file-item', onDoubleClick: this.fileStore.onDoubleClickFile}, 
+            React.createElement(RemoveConfirmDialog_1.default, {removeConfirmStore: this.removeConfirmStore}), 
             React.createElement(Row_1.default, null, 
                 React.createElement(Col_1.default, null, 
                     React.createElement("div", {className: 'filename'}, this.fileStore.filename)
@@ -51,7 +54,7 @@ let File = class File extends React.Component {
             React.createElement(core_1.MenuItem, {iconName: '', text: 'Open'}), 
             React.createElement(core_1.MenuItem, {iconName: '', text: 'Open in Finder', onClick: openInFinder}), 
             React.createElement(core_1.MenuDivider, null), 
-            React.createElement(core_1.MenuItem, {iconName: 'trash', text: 'Delete'})));
+            React.createElement(core_1.MenuItem, {iconName: 'trash', text: 'Delete', onClick: this.removeConfirmStore.openDialog})));
     }
 };
 File = __decorate([

@@ -77,6 +77,11 @@ class FileStore {
             yield aria2_store_1.aria2Store.aria2.pause(this.file.gid);
             this.stopListen();
         });
+        this.remove = () => __awaiter(this, void 0, void 0, function* () {
+            yield aria2_store_1.aria2Store.aria2.remove(this.file.gid);
+            this.stopListen(true);
+            aria2_store_1.aria2Store.getLocals();
+        });
         this.startListen = (delay = 1000) => {
             const updateFile = () => __awaiter(this, void 0, void 0, function* () {
                 const file = yield aria2_store_1.aria2Store.aria2.tellStatus(this.file.gid);
@@ -92,10 +97,15 @@ class FileStore {
                 this.interval = setInterval(updateFile, delay);
             }
         };
-        this.stopListen = () => {
-            setTimeout(() => {
+        this.stopListen = (immediatly = false) => {
+            if (immediatly) {
                 clearInterval(this.interval);
-            }, 1000);
+            }
+            else {
+                setTimeout(() => {
+                    clearInterval(this.interval);
+                }, 1000);
+            }
         };
         this.file = file;
         this.startListen();
@@ -142,6 +152,9 @@ __decorate([
 __decorate([
     mobx_1.action
 ], FileStore.prototype, "pause", void 0);
+__decorate([
+    mobx_1.action
+], FileStore.prototype, "remove", void 0);
 __decorate([
     mobx_1.action
 ], FileStore.prototype, "startListen", void 0);

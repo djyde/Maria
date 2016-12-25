@@ -10,7 +10,7 @@ import Row from './Row'
 import Col from './Col'
 import { FileStore } from '../stores/file.store'
 import { aria2Store } from '../stores/aria2.store'
-import { toJS } from 'mobx'
+import RemoveConfirmDialog, { RemoveConfirmStore } from './RemoveConfirmDialog'
 import { observer } from 'mobx-react'
 import { shell } from 'electron'
 
@@ -35,14 +35,17 @@ export interface IFileProps {
 export class File extends React.Component<IFileProps, {}> {
 
   private fileStore: FileStore
+  private removeConfirmStore: RemoveConfirmStore
 
   componentWillMount() {
     this.fileStore = new FileStore(this.props.file)
+    this.removeConfirmStore = new RemoveConfirmStore(this.fileStore)
   }
 
   render() {
     return (
       <div className='file-item' onDoubleClick={this.fileStore.onDoubleClickFile}>
+        <RemoveConfirmDialog removeConfirmStore={this.removeConfirmStore} />
         <Row>
           <Col>
             <div className='filename'>{this.fileStore.filename}</div>
@@ -74,7 +77,7 @@ export class File extends React.Component<IFileProps, {}> {
         <MenuItem iconName='' text='Open' />
         <MenuItem iconName='' text='Open in Finder' onClick={openInFinder} />
         <MenuDivider />
-        <MenuItem iconName='trash' text='Delete' />
+        <MenuItem iconName='trash' text='Delete' onClick={this.removeConfirmStore.openDialog} />
       </Menu>
     )
   }

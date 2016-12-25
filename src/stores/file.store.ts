@@ -80,6 +80,12 @@ export class FileStore {
     this.stopListen()
   }
 
+  @action remove = async () => {
+    await aria2Store.aria2.remove(this.file.gid)
+    this.stopListen(true)
+    aria2Store.getLocals()
+  }
+
   @action startListen = (delay: number = 1000) => {
     const updateFile = async () => {
       const file = await aria2Store.aria2.tellStatus(this.file.gid)
@@ -96,10 +102,14 @@ export class FileStore {
     }
   }
 
-  @action stopListen = () => {
-    setTimeout(() => {
+  @action stopListen = (immediatly = false) => {
+    if (immediatly) {
       clearInterval(this.interval)
-    }, 1000)
+    } else {
+      setTimeout(() => {
+        clearInterval(this.interval)
+      }, 1000)
+    }
   }
 
   @computed get filename(): string {
@@ -110,7 +120,7 @@ export class FileStore {
     return parseSize(this.file.totalLength)
   }
 
-  @computed get downloadSpeed () {
+  @computed get downloadSpeed() {
     return parseSize(this.file.downloadSpeed)
   }
 
