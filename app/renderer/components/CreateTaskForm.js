@@ -21,8 +21,6 @@ const global_store_1 = require('../stores/global.store');
 const aria2_store_1 = require('../stores/aria2.store');
 const file_store_1 = require('../stores/file.store');
 const storage_1 = require('../storage');
-const Row_1 = require('./Row');
-const Col_1 = require('./Col');
 const { dialog } = electron_1.remote;
 class TaskFormStore {
     constructor() {
@@ -73,13 +71,7 @@ const CreateTaskForm = ({ taskFormStore: TaskFormStore }) => {
     return (React.createElement("div", {className: 'pt-dialog-body create-task-form'}, 
         React.createElement("label", {className: "pt-label"}, 
             "Path:", 
-            React.createElement(Row_1.default, null, 
-                React.createElement(Col_1.default, {span: 11}, 
-                    React.createElement("input", {defaultValue: aria2_store_1.aria2Store.globalOption.dir, ref: exports.taskFormStore.savePathInputRef, className: 'pt-input'})
-                ), 
-                React.createElement(Col_1.default, {span: 1}, 
-                    React.createElement(core_1.Button, {onClick: exports.taskFormStore.choosePath, style: { marginTop: '5px', marginLeft: '8px' }, iconName: 'folder-open'})
-                ))), 
+            React.createElement(core_1.InputGroup, {defaultValue: aria2_store_1.aria2Store.globalOption.dir, inputRef: exports.taskFormStore.savePathInputRef, rightElement: React.createElement(core_1.Button, {onClick: exports.taskFormStore.choosePath, iconName: 'folder-open'})})), 
         React.createElement("label", {className: 'pt-label'}, 
             "URL:", 
             React.createElement("textarea", {className: 'url-input pt-input', ref: exports.taskFormStore.saveURLTextareaRef, dir: 'auto', placeholder: 'HTTP/FTP/SFTP/BitTorrent/Magnet... 用逗号分隔多个 URL'})), 

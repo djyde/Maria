@@ -15,6 +15,7 @@
     "@blueprintjs/core": "^1.4.0",
     "@types/react": "^0.14.55",
     "@types/react-dom": "^0.14.19",
+    "@types/react-router": "^2.0.41",
     "bourbon": "^4.2.7",
     "mobx": "^2.7.0",
     "mobx-react": "^4.0.4",
@@ -25,6 +26,7 @@
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-router": "^3.0.0",
     "scss": "^0.2.4",
     "typescript": "^2.1.4"
   }

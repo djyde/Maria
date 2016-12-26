@@ -16,6 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const mobx_1 = require('mobx');
 const Aria2 = require('aria2');
 const core_1 = require('@blueprintjs/core');
+const storage_1 = require('../storage');
 (function (Aria2Status) {
     Aria2Status[Aria2Status["WAITING"] = 0] = "WAITING";
     Aria2Status[Aria2Status["OPENED"] = 1] = "OPENED";
@@ -35,6 +36,8 @@ class Aria2Store {
         };
         this.getGlobalOption = () => __awaiter(this, void 0, void 0, function* () {
             const options = yield this.aria2.getGlobalOption();
+            // set option to db
+            storage_1.setDefaultDir(options.dir);
             mobx_1.runInAction('get global option success', () => {
                 this.globalOption = options;
             });
@@ -67,7 +70,7 @@ class Aria2Store {
         this.aria2.open();
         this.aria2.onopen = () => {
             this.changeAria2Status(Aria2Status.OPENED);
-            core_1.Toaster.create().show({ message: 'Aria2 connect success' });
+            // Toaster.create().show({ message: 'Aria2 connect success' })
             this.getGlobalOption();
         };
         this.aria2.onclose = () => {

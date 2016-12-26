@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {
   Button,
-  Intent
+  Intent,
+  InputGroup
 } from '@blueprintjs/core'
 import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
@@ -58,14 +59,7 @@ const CreateTaskForm = ({ taskFormStore: TaskFormStore }) => {
     <div className='pt-dialog-body create-task-form'>
       <label className="pt-label">
         Path:
-        <Row>
-          <Col span={11}>
-            <input defaultValue={aria2Store.globalOption.dir} ref={taskFormStore.savePathInputRef} className='pt-input' />
-          </Col>
-          <Col span={1}>
-            <Button onClick={taskFormStore.choosePath} style={{ marginTop: '5px', marginLeft: '8px' }} iconName='folder-open'></Button>
-          </Col>
-        </Row>
+        <InputGroup defaultValue={aria2Store.globalOption.dir} inputRef={taskFormStore.savePathInputRef} rightElement={<Button onClick={taskFormStore.choosePath} iconName='folder-open'></Button>}/>
       </label>
       <label className='pt-label'>
         URL:

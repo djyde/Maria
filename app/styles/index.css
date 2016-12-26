@@ -708,6 +708,10 @@ Styleguide colors.schemes.qualitative
   flex: 1;
   flex-direction: row; }
 
+.pt-menu {
+  background: #30404d;
+  color: #f5f8fa; }
+
 #sidebar {
   flex: 1; }
 
@@ -745,3 +749,11 @@ Styleguide colors.schemes.qualitative
   width: 100%;
   height: 128px;
   resize: none; }
+
+#settings-view {
+  padding: 1em; }
+  #settings-view input {
+    margin-left: 1em;
+    width: 420px; }
+  #settings-view .title {
+    margin-bottom: 1em; }

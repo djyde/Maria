@@ -3,6 +3,7 @@ import * as Aria2 from 'aria2'
 import {
   Toaster
 } from '@blueprintjs/core'
+import { setDefaultDir } from '../storage'
 
 export interface IAria2Option {
   host: string,
@@ -37,7 +38,7 @@ export class Aria2Store {
 
     this.aria2.onopen = () => {
       this.changeAria2Status(Aria2Status.OPENED)
-      Toaster.create().show({ message: 'Aria2 connect success' })
+      // Toaster.create().show({ message: 'Aria2 connect success' })
       this.getGlobalOption()
     }
 
@@ -53,6 +54,8 @@ export class Aria2Store {
 
   @action getGlobalOption = async () => {
     const options: IAria2GlobalOption = await this.aria2.getGlobalOption()
+    // set option to db
+    setDefaultDir(options.dir)
     runInAction('get global option success', () => {
       this.globalOption = options
     })
