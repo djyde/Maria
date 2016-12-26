@@ -2,13 +2,17 @@
 const React = require('react');
 const react_dom_1 = require('react-dom');
 const mobx_react_1 = require('mobx-react');
+const mobx_1 = require('mobx');
 const core_1 = require('@blueprintjs/core');
 const FileList_1 = require('./components/FileList');
 const aria2_store_1 = require('./stores/aria2.store');
 const global_store_1 = require('./stores/global.store');
 const CreateTaskModal_1 = require('./components/CreateTaskModal');
+const mobx_react_devtools_1 = require('mobx-react-devtools');
+mobx_1.useStrict(true);
 const App = mobx_react_1.observer(() => {
     return (React.createElement("div", {className: 'pt-app pt-dark'}, 
+        React.createElement(mobx_react_devtools_1.default, null), 
         React.createElement(CreateTaskModal_1.default, null), 
         React.createElement("nav", {id: 'navbar', className: 'pt-navbar draggable'}, 
             React.createElement("div", {className: 'pt-navbar-group pt-align-left'}, 

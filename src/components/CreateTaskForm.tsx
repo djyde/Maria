@@ -8,6 +8,8 @@ import { observable, action } from 'mobx'
 import { remote } from 'electron'
 import { globalStore } from '../stores/global.store'
 import { aria2Store } from '../stores/aria2.store'
+import { parseFileName } from '../stores/file.store'
+import { createTask } from '../storage'
 import Row from './Row'
 import Col from './Col'
 
@@ -28,9 +30,14 @@ export class TaskFormStore {
   @action onDownload = async () => {
     const URL = this.URLTextareaRef.value.split(',')
     const dir = this.pathInputRef.value
-    const res = await aria2Store.aria2.addUri(URL, { dir })
+    // create Aria2 task
+    const gid: string = await aria2Store.aria2.addUri(URL, { dir })
+    // add to db
+    URL.forEach(url => {
+      createTask(gid, parseFileName(url), dir)
+    })
     // refetch task list
-    aria2Store.getLocals()
+    globalStore.getAllTasks()
     // close modal
     globalStore.closeCreateTaskModal()
   }

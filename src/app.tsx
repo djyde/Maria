@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import { observer } from 'mobx-react'
-import config from './config'
+import { useStrict } from 'mobx'
 import {
   Menu,
   MenuItem,
@@ -11,10 +11,14 @@ import FileList from './components/FileList'
 import { aria2Store, Aria2Status } from './stores/aria2.store'
 import { globalStore } from './stores/global.store'
 import CreateTaskModal from './components/CreateTaskModal'
+import DevTools from 'mobx-react-devtools'
+
+useStrict(true)
 
 const App = observer(() => {
   return (
     <div className='pt-app pt-dark'>
+      <DevTools />
       <CreateTaskModal />
       <nav id='navbar' className='pt-navbar draggable'>
         <div className='pt-navbar-group pt-align-left'>

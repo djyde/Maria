@@ -1,5 +1,6 @@
 import { observable, action, computed, runInAction } from 'mobx'
 import { aria2Store, Aria2Status } from '../stores/aria2.store'
+import { ITaskFile, getDBTaskByGID } from '../storage'
 import {
   Intent
 } from '@blueprintjs/core'
@@ -16,7 +17,7 @@ export function toFixed(num: number, count: number = 2) {
   return num.toFixed(count)
 }
 
-export function parseSize(byte: string, hex: number = 1000): string {
+export function parseSize(byte: string | number, hex: number = 1000): string {
   const byteNum = Number(byte)
   if (byteNum < hex) {
     return `${toFixed(byteNum, 1)}B`
@@ -39,15 +40,24 @@ export enum DOWNLOAD_STATUS {
 
 export class FileStore {
   private interval: number
-  @observable file: Aria2File
+  @observable aria2File: Aria2File
+  @observable dbTaskFile: ITaskFile
+  @observable isNotFound: boolean = true
 
-  constructor(file: Aria2File) {
-    this.file = file
+  constructor(private gid: string) {
+    this.setDBTask(getDBTaskByGID(gid))
     this.startListen()
   }
 
-  @computed get progressBarIntent() {
-    switch (this.file.status) {
+  @action setDBTask = (task: ITaskFile) => {
+    this.dbTaskFile = task
+  }
+
+  @computed get progressBarIntent(): Intent {
+    if (this.isNotFound) {
+      return Intent.NONE
+    }
+    switch (this.aria2File.status) {
       case 'active':
         return Intent.SUCCESS
       case 'paused':
@@ -62,8 +72,11 @@ export class FileStore {
   }
 
   @action onDoubleClickFile = () => {
-    console.log(this.file)
-    if (this.file.status !== 'active') {
+    if (this.isNotFound) {
+      // TODO: re-download task
+      return
+    }
+    if (this.aria2File.status !== 'active') {
       this.start()
     } else {
       this.pause()
@@ -71,35 +84,46 @@ export class FileStore {
   }
 
   @action start = async () => {
-    await aria2Store.aria2.unpause(this.file.gid)
+    await aria2Store.aria2.unpause(this.dbTaskFile.gid)
     this.startListen()
   }
 
   @action pause = async () => {
-    await aria2Store.aria2.pause(this.file.gid)
+    // TODO: prevent aria2File is null
+    await aria2Store.aria2.pause(this.aria2File.gid)
     this.stopListen()
   }
 
   @action remove = async () => {
-    await aria2Store.aria2.remove(this.file.gid)
+    if (this.isNotFound) {
+      // TODO: remove source file
+      return
+    }
+    await aria2Store.aria2.remove(this.aria2File.gid)
     this.stopListen(true)
-    aria2Store.getLocals()
+    // aria2Store.getLocals()
   }
 
   @action startListen = (delay: number = 1000) => {
-    const updateFile = async () => {
-      const file = await aria2Store.aria2.tellStatus(this.file.gid)
-      runInAction('update file status', () => {
-        this.file = file
-        if (this.file.status === 'completed') {
-          this.stopListen()
-        }
-      })
+    const listenTask = async () => {
+      try {
+        const file: Aria2File = await aria2Store.aria2.tellStatus(this.gid)
+        runInAction(`listen task ${this.gid} successful`, () => {
+          this.aria2File = file
+          this.isNotFound = false
+        })
+      } catch (e) {
+        const err: IAria2Error = e
+        runInAction(`listen task ${this.gid} failed`, () => {
+          if (err.message.match('not found')) {
+            this.isNotFound = true
+            this.stopListen()
+          }
+        })
+      }
     }
-    if (aria2Store.status === Aria2Status.OPENED) {
-      updateFile()
-      this.interval = setInterval(updateFile, delay)
-    }
+    listenTask()
+    this.interval = setInterval(listenTask, delay)
   }
 
   @action stopListen = (immediatly = false) => {
@@ -113,18 +137,50 @@ export class FileStore {
   }
 
   @computed get filename(): string {
-    return parseFileName(this.file.files[0].path)
+    if (!this.isNotFound) {
+      return parseFileName(this.aria2File.files[0].path)
+    } else {
+      return this.dbTaskFile.filename
+    }
   }
 
   @computed get fileSize(): string {
-    return parseSize(this.file.totalLength)
+    if (this.isNotFound) {
+      return parseSize(0)
+    } else {
+      return parseSize(this.aria2File.totalLength)
+    }
   }
 
   @computed get downloadSpeed() {
-    return parseSize(this.file.downloadSpeed)
+    if (this.isNotFound) {
+      return parseSize(0)
+    } else {
+      return parseSize(this.aria2File.downloadSpeed)
+    }
   }
 
   @computed get progress(): number {
-    return computedProgress(Number(this.file.completedLength), Number(this.file.totalLength))
+    if (this.isNotFound) {
+      return computedProgress(0, 0)
+    } else {
+      return computedProgress(Number(this.aria2File.completedLength), Number(this.aria2File.totalLength))
+    }
+  }
+
+  @computed get taskStatus(): Aria2TaskStatus {
+    if (this.isNotFound) {
+      return 'paused'
+    } else {
+      return this.aria2File.status
+    }
+  }
+
+  @computed get fileDir(): string {
+    if (this.isNotFound) {
+      return this.dbTaskFile.dir
+    } else {
+      return this.aria2File.dir
+    }
   }
 }

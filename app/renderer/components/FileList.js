@@ -10,18 +10,23 @@ const core_1 = require('@blueprintjs/core');
 const Row_1 = require('./Row');
 const Col_1 = require('./Col');
 const file_store_1 = require('../stores/file.store');
-const aria2_store_1 = require('../stores/aria2.store');
+const global_store_1 = require('../stores/global.store');
 const RemoveConfirmDialog_1 = require('./RemoveConfirmDialog');
 const mobx_react_1 = require('mobx-react');
 const electron_1 = require('electron');
-exports.FileList = mobx_react_1.observer(() => {
-    return (React.createElement("div", null, aria2_store_1.aria2Store.locals.map(file => {
-        return (React.createElement(File, {key: file.gid, file: file}));
-    })));
-});
+let FileList = class FileList extends React.Component {
+    render() {
+        return (React.createElement("div", null, global_store_1.globalStore.allTasks.map(task => {
+            return (React.createElement(File, {key: task.gid, gid: task.gid}));
+        })));
+    }
+};
+FileList = __decorate([
+    mobx_react_1.observer
+], FileList);
 let File = class File extends React.Component {
     componentWillMount() {
-        this.fileStore = new file_store_1.FileStore(this.props.file);
+        this.fileStore = new file_store_1.FileStore(this.props.gid);
         this.removeConfirmStore = new RemoveConfirmDialog_1.RemoveConfirmStore(this.fileStore);
     }
     render() {
@@ -41,14 +46,14 @@ let File = class File extends React.Component {
                 React.createElement(Col_1.default, null, 
                     React.createElement("div", {className: 'size'}, this.fileStore.fileSize)
                 ), 
-                React.createElement(Col_1.default, null, this.fileStore.file.status === 'active' && React.createElement("div", {className: 'speed'}, 
+                React.createElement(Col_1.default, null, this.fileStore.taskStatus === 'active' && React.createElement("div", {className: 'speed'}, 
                     "- ", 
                     this.fileStore.downloadSpeed, 
                     "/s")))));
     }
     renderContextMenu() {
         const openInFinder = () => {
-            electron_1.shell.showItemInFolder(this.fileStore.file.files[0].path);
+            electron_1.shell.showItemInFolder(this.fileStore.fileDir);
         };
         return (React.createElement(core_1.Menu, null, 
             React.createElement(core_1.MenuItem, {iconName: '', text: 'Open'}), 
@@ -63,4 +68,4 @@ File = __decorate([
 ], File);
 exports.File = File;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = exports.FileList;
+exports.default = FileList;

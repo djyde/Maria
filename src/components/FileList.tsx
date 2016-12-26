@@ -9,25 +9,29 @@ import {
 import Row from './Row'
 import Col from './Col'
 import { FileStore } from '../stores/file.store'
-import { aria2Store } from '../stores/aria2.store'
+import { globalStore } from '../stores/global.store'
+import { ITaskFile } from '../storage'
 import RemoveConfirmDialog, { RemoveConfirmStore } from './RemoveConfirmDialog'
 import { observer } from 'mobx-react'
 import { shell } from 'electron'
 
-export const FileList = observer(() => {
-  return (
-    <div>
-      {aria2Store.locals.map(file => {
-        return (
-          <File key={file.gid} file={file} />
-        )
-      })}
-    </div>
-  )
-})
+@observer
+class FileList extends React.Component<{}, {}> {
+  render () {
+    return (
+      <div>
+        {globalStore.allTasks.map(task => {
+          return (
+            <File key={task.gid} gid={task.gid} />
+          )
+        })}
+      </div>
+    )
+  }
+}
 
 export interface IFileProps {
-  file: Aria2File
+  gid: string
 }
 
 @observer
@@ -38,7 +42,7 @@ export class File extends React.Component<IFileProps, {}> {
   private removeConfirmStore: RemoveConfirmStore
 
   componentWillMount() {
-    this.fileStore = new FileStore(this.props.file)
+    this.fileStore = new FileStore(this.props.gid)
     this.removeConfirmStore = new RemoveConfirmStore(this.fileStore)
   }
 
@@ -61,7 +65,7 @@ export class File extends React.Component<IFileProps, {}> {
             <div className='size'>{this.fileStore.fileSize}</div>
           </Col>
           <Col>
-            {this.fileStore.file.status === 'active' && <div className='speed'>- {this.fileStore.downloadSpeed}/s</div>}
+            {this.fileStore.taskStatus === 'active' && <div className='speed'>- {this.fileStore.downloadSpeed}/s</div>}
           </Col>
         </Row>
       </div>
@@ -70,7 +74,7 @@ export class File extends React.Component<IFileProps, {}> {
 
   renderContextMenu() {
     const openInFinder = () => {
-      shell.showItemInFolder(this.fileStore.file.files[0].path)
+      shell.showItemInFolder(this.fileStore.fileDir)
     }
     return (
       <Menu>

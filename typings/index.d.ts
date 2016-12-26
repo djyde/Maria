@@ -7,7 +7,7 @@ declare interface Aria2File {
    * `error` for downloads that were stopped because of error.
    * `complete` for stopped and completed downloads.
    * `removed` for the downloads removed by user. */
-  status: string,
+  status: Aria2TaskStatus,
   /** Total length of the download in bytes. */
   totalLength: string,
   /** Completed length of the download in bytes. */
@@ -22,6 +22,8 @@ declare interface Aria2File {
   }[]
 }
 
+declare type Aria2TaskStatus = 'active' | 'waiting' | 'paused' | 'error' | 'complete' | 'removed'
+
 declare enum Aria2ErrorCode {
   SUCCESSFUL,
   UNKNOWN,
@@ -33,6 +35,11 @@ declare enum Aria2ErrorCode {
   FORCE_QUITE,
   RESUME_NOT_SUPPORT,
   DISK_SPACE_NOT_ENOUGH
+}
+
+declare interface IAria2Error {
+  code: number,
+  message: string
 }
 
 declare var global: any

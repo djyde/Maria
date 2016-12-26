@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "aria2": "^3.0.0",
-    "electron": "^1.4.13"
+    "electron": "^1.4.13",
+    "lowdb": "^0.14.0"
   },
   "devDependencies": {
     "@blueprintjs/core": "^1.4.0",
@@ -17,6 +18,7 @@
     "bourbon": "^4.2.7",
     "mobx": "^2.7.0",
     "mobx-react": "^4.0.4",
+    "mobx-react-devtools": "^4.2.10",
     "node-sass": "^4.1.1",
     "node-sass-import": "^1.1.1",
     "normalize.css": "^5.0.0",

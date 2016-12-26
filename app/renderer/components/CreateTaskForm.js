@@ -19,6 +19,8 @@ const mobx_1 = require('mobx');
 const electron_1 = require('electron');
 const global_store_1 = require('../stores/global.store');
 const aria2_store_1 = require('../stores/aria2.store');
+const file_store_1 = require('../stores/file.store');
+const storage_1 = require('../storage');
 const Row_1 = require('./Row');
 const Col_1 = require('./Col');
 const { dialog } = electron_1.remote;
@@ -33,9 +35,14 @@ class TaskFormStore {
         this.onDownload = () => __awaiter(this, void 0, void 0, function* () {
             const URL = this.URLTextareaRef.value.split(',');
             const dir = this.pathInputRef.value;
-            const res = yield aria2_store_1.aria2Store.aria2.addUri(URL, { dir });
+            // create Aria2 task
+            const gid = yield aria2_store_1.aria2Store.aria2.addUri(URL, { dir });
+            // add to db
+            URL.forEach(url => {
+                storage_1.createTask(gid, file_store_1.parseFileName(url), dir);
+            });
             // refetch task list
-            aria2_store_1.aria2Store.getLocals();
+            global_store_1.globalStore.getAllTasks();
             // close modal
             global_store_1.globalStore.closeCreateTaskModal();
         });

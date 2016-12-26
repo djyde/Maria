@@ -30,36 +30,31 @@ export class Aria2Store {
 
   @observable locals: Aria2File[] = []
 
-  constructor (option: IAria2Option) {
+  constructor(option: IAria2Option) {
     this.aria2 = new Aria2(option)
 
     this.aria2.open()
 
     this.aria2.onopen = () => {
-      this.status = Aria2Status.OPENED
+      this.changeAria2Status(Aria2Status.OPENED)
       Toaster.create().show({ message: 'Aria2 connect success' })
-      this.getLocals()
       this.getGlobalOption()
     }
 
     this.aria2.onclose = () => {
-      this.status = Aria2Status.CLOSED
+      this.changeAria2Status(Aria2Status.CLOSED)
       Toaster.create().show({ message: 'Aria2 connect error' })
     }
+  }
+
+  @action changeAria2Status = (status: Aria2Status) => {
+    this.status = status
   }
 
   @action getGlobalOption = async () => {
     const options: IAria2GlobalOption = await this.aria2.getGlobalOption()
     runInAction('get global option success', () => {
       this.globalOption = options
-    })
-  }
-
-  @action getLocals = async () => {
-    const actives: Aria2File[] = await this.aria2.tellActive()
-    const waitings: Aria2File[] = await this.aria2.tellWaiting(0, 10)
-    runInAction('set local', () => {
-      this.locals = ([] as Aria2File[]).concat(actives, waitings)
     })
   }
 
