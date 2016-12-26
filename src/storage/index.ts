@@ -33,7 +33,7 @@ export const getDBTaskByGID = (gid: string): ITaskFile => {
   return db.get('tasks').find({ gid }).value() as ITaskFile
 }
 
-export const createTask = (gid, filename: string, dir: string) => {
+export const createTask = (gid: string, filename: string, dir: string) => {
   const createdAt = Date.now().toString()
   const updatedAt = createdAt
   db.get('tasks').push({
@@ -44,6 +44,10 @@ export const createTask = (gid, filename: string, dir: string) => {
     updatedAt
   })
   .value()
+}
+
+export const removeTask = (gid: string) => {
+  db.get('tasks').remove({ gid }).value()
 }
 
 export default db

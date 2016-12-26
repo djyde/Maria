@@ -11,6 +11,8 @@ import { FileStore } from '../stores/file.store'
 import Row from './Row'
 import Col from './Col'
 import { aria2Store } from '../stores/aria2.store'
+import { globalStore } from '../stores/global.store'
+import { removeTask } from '../storage'
 const fs = global.require('fs')
 
 export class RemoveConfirmStore {
@@ -20,7 +22,7 @@ export class RemoveConfirmStore {
 
   constructor (private fileStore: FileStore) {
   }
-
+8
   @action openDialog = () => {
     this.isOpen = true
   }
@@ -34,18 +36,23 @@ export class RemoveConfirmStore {
   }
 
   @action removeTask = async () => {
-    await aria2Store.aria2.remove(this.fileStore.file.gid)
+    // remove from Aria2
+    await aria2Store.aria2.remove(this.fileStore.dbTaskFile.gid)
+    // remove from db
+    removeTask(this.fileStore.dbTaskFile.gid)
     runInAction('remove task successful', () => {
       this.closeDialog()
       // stop listen immediatly
       this.fileStore.stopListen(true)
       // refetch task list
-      aria2Store.getLocals()
+      globalStore.getAllTasks()
 
       // remove file source
-      if (this.isForceRemove && fs.existsSync(this.fileStore.file.files[0].path)) {
-        fs.unlinkSync(this.fileStore.file.files[0].path)
-        fs.unlinkSync(`${this.fileStore.file.files[0].path}.aria2`)
+      if (this.isForceRemove && fs.existsSync(this.fileStore.filePath)) {
+        fs.unlinkSync(this.fileStore.filePath)
+        if (fs.existsSync(`${this.fileStore.filePath}.aria2`)) {
+          fs.unlinkSync(`${this.fileStore.filePath}.aria2`)
+        }
       }
     })
   }

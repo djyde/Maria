@@ -16,6 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const mobx_1 = require('mobx');
 const aria2_store_1 = require('../stores/aria2.store');
 const storage_1 = require('../storage');
+const path = global.require('path');
 const core_1 = require('@blueprintjs/core');
 function computedProgress(completed, total) {
     if (completed === 0 || total === 0) {
@@ -196,6 +197,14 @@ class FileStore {
             return this.aria2File.dir;
         }
     }
+    get filePath() {
+        if (this.isNotFound) {
+            return path.join(this.dbTaskFile.dir, this.dbTaskFile.filename);
+        }
+        else {
+            return this.aria2File.files[0].path;
+        }
+    }
 }
 __decorate([
     mobx_1.observable
@@ -248,4 +257,7 @@ __decorate([
 __decorate([
     mobx_1.computed
 ], FileStore.prototype, "fileDir", null);
+__decorate([
+    mobx_1.computed
+], FileStore.prototype, "filePath", null);
 exports.FileStore = FileStore;

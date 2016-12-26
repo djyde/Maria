@@ -28,5 +28,8 @@ exports.createTask = (gid, filename, dir) => {
     })
         .value();
 };
+exports.removeTask = (gid) => {
+    db.get('tasks').remove({ gid }).value();
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = db;

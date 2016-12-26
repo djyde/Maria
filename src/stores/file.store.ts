@@ -1,6 +1,7 @@
 import { observable, action, computed, runInAction } from 'mobx'
 import { aria2Store, Aria2Status } from '../stores/aria2.store'
 import { ITaskFile, getDBTaskByGID } from '../storage'
+const path = global.require('path')
 import {
   Intent
 } from '@blueprintjs/core'
@@ -181,6 +182,14 @@ export class FileStore {
       return this.dbTaskFile.dir
     } else {
       return this.aria2File.dir
+    }
+  }
+
+  @computed get filePath(): string {
+    if (this.isNotFound) {
+      return path.join(this.dbTaskFile.dir, this.dbTaskFile.filename) as string
+    } else {
+      return this.aria2File.files[0].path
     }
   }
 }

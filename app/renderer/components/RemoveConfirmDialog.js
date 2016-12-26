@@ -20,6 +20,8 @@ const core_1 = require('@blueprintjs/core');
 const Row_1 = require('./Row');
 const Col_1 = require('./Col');
 const aria2_store_1 = require('../stores/aria2.store');
+const global_store_1 = require('../stores/global.store');
+const storage_1 = require('../storage');
 const fs = global.require('fs');
 class RemoveConfirmStore {
     constructor(fileStore) {
@@ -37,17 +39,22 @@ class RemoveConfirmStore {
             this.isForceRemove = !this.isForceRemove;
         };
         this.removeTask = () => __awaiter(this, void 0, void 0, function* () {
-            yield aria2_store_1.aria2Store.aria2.remove(this.fileStore.file.gid);
+            // remove from Aria2
+            yield aria2_store_1.aria2Store.aria2.remove(this.fileStore.dbTaskFile.gid);
+            // remove from db
+            storage_1.removeTask(this.fileStore.dbTaskFile.gid);
             mobx_1.runInAction('remove task successful', () => {
                 this.closeDialog();
                 // stop listen immediatly
                 this.fileStore.stopListen(true);
                 // refetch task list
-                aria2_store_1.aria2Store.getLocals();
+                global_store_1.globalStore.getAllTasks();
                 // remove file source
-                if (this.isForceRemove && fs.existsSync(this.fileStore.file.files[0].path)) {
-                    fs.unlinkSync(this.fileStore.file.files[0].path);
-                    fs.unlinkSync(`${this.fileStore.file.files[0].path}.aria2`);
+                if (this.isForceRemove && fs.existsSync(this.fileStore.filePath)) {
+                    fs.unlinkSync(this.fileStore.filePath);
+                    if (fs.existsSync(`${this.fileStore.filePath}.aria2`)) {
+                        fs.unlinkSync(`${this.fileStore.filePath}.aria2`);
+                    }
                 }
             });
         });
