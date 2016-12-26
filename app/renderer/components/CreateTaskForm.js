@@ -71,7 +71,7 @@ const CreateTaskForm = ({ taskFormStore: TaskFormStore }) => {
     return (React.createElement("div", {className: 'pt-dialog-body create-task-form'}, 
         React.createElement("label", {className: "pt-label"}, 
             "Path:", 
-            React.createElement(core_1.InputGroup, {defaultValue: aria2_store_1.aria2Store.globalOption.dir, inputRef: exports.taskFormStore.savePathInputRef, rightElement: React.createElement(core_1.Button, {onClick: exports.taskFormStore.choosePath, iconName: 'folder-open'})})), 
+            React.createElement(core_1.InputGroup, {defaultValue: storage_1.getGlobalOption().dir || aria2_store_1.aria2Store.globalOption.dir, inputRef: exports.taskFormStore.savePathInputRef, rightElement: React.createElement(core_1.Button, {onClick: exports.taskFormStore.choosePath, iconName: 'folder-open'})})), 
         React.createElement("label", {className: 'pt-label'}, 
             "URL:", 
             React.createElement("textarea", {className: 'url-input pt-input', ref: exports.taskFormStore.saveURLTextareaRef, dir: 'auto', placeholder: 'HTTP/FTP/SFTP/BitTorrent/Magnet... 用逗号分隔多个 URL'})), 

@@ -10,7 +10,7 @@ import { remote } from 'electron'
 import { globalStore } from '../stores/global.store'
 import { aria2Store } from '../stores/aria2.store'
 import { parseFileName } from '../stores/file.store'
-import { createTask } from '../storage'
+import { createTask, getGlobalOption } from '../storage'
 import Row from './Row'
 import Col from './Col'
 
@@ -59,7 +59,7 @@ const CreateTaskForm = ({ taskFormStore: TaskFormStore }) => {
     <div className='pt-dialog-body create-task-form'>
       <label className="pt-label">
         Path:
-        <InputGroup defaultValue={aria2Store.globalOption.dir} inputRef={taskFormStore.savePathInputRef} rightElement={<Button onClick={taskFormStore.choosePath} iconName='folder-open'></Button>}/>
+        <InputGroup defaultValue={getGlobalOption().dir || aria2Store.globalOption.dir} inputRef={taskFormStore.savePathInputRef} rightElement={<Button onClick={taskFormStore.choosePath} iconName='folder-open'></Button>}/>
       </label>
       <label className='pt-label'>
         URL:
