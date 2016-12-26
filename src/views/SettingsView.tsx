@@ -51,7 +51,7 @@ class SettingsView extends React.Component<{}, {}> {
     return (
       <div id='settings-view'>
         <h6 className='title'>Settings</h6>
-        <div style={{ marginLeft: '2em' }}>
+        <div style={{ margin: '0 auto' }}>
           <label className='pt-label pt-inline'>
             下载目录
             <InputGroup

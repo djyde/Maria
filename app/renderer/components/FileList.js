@@ -16,9 +16,18 @@ const mobx_react_1 = require('mobx-react');
 const electron_1 = require('electron');
 let FileList = class FileList extends React.Component {
     render() {
-        return (React.createElement("div", null, global_store_1.globalStore.allTasks.map(task => {
-            return (React.createElement(File, {key: task.gid, gid: task.gid}));
-        })));
+        if (global_store_1.globalStore.allTasks.length === 0) {
+            return (React.createElement(Row_1.default, {style: { justifyContent: 'center', height: '100%' }}, 
+                React.createElement(core_1.NonIdealState, {title: 'Task list is empty', description: 'Click to add new task', visual: React.createElement("div", {className: "pt-non-ideal-state-visual pt-non-ideal-state-icon"}, 
+                    React.createElement("span", {className: "pt-icon pt-icon-download"})
+                ), action: React.createElement(core_1.Button, {onClick: global_store_1.globalStore.openCreateTaskModal}, "新建任务")})
+            ));
+        }
+        else {
+            return (React.createElement("div", null, global_store_1.globalStore.allTasks.map(task => {
+                return (React.createElement(File, {key: task.gid, gid: task.gid}));
+            })));
+        }
     }
 };
 FileList = __decorate([

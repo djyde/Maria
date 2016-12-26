@@ -694,6 +694,9 @@ Styleguide colors.schemes.qualitative
   -webkit-app-region: drag;
   -webkit-user-select: none; }
 
+.pt-non-ideal-state-visual {
+  margin-bottom: 12px; }
+
 #app {
   height: 100vh; }
 

@@ -6,6 +6,10 @@
   -webkit-user-select: none;
 }
 
+.pt-non-ideal-state-visual {
+  margin-bottom: 12px;
+}
+
 #app {
   height: 100vh;
 }
@@ -44,6 +48,7 @@
   display: flex;
   flex-direction: column;
   flex: 5;
+  // justify-content: center;
 }
 
 #sidebar .pt-menu {

@@ -7,15 +7,12 @@ import { observer } from 'mobx-react'
 class TasksView extends React.Component<{}, {}> {
 
   componentWillMount () {
-    console.log('will')
   }
 
   render () {
-    if (aria2Store.status === Aria2Status.OPENED) {
-      return (<FileList />)
-    } else {
-      return <div>Disconnect</div>
-    }
+    return (
+      <FileList />
+    )
   }
 }
 

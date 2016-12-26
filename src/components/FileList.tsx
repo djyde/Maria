@@ -5,6 +5,8 @@ import {
   ContextMenuTarget,
   Menu,
   MenuItem,
+  NonIdealState,
+  Button
 } from '@blueprintjs/core'
 import Row from './Row'
 import Col from './Col'
@@ -17,16 +19,30 @@ import { shell } from 'electron'
 
 @observer
 class FileList extends React.Component<{}, {}> {
-  render () {
-    return (
-      <div>
-        {globalStore.allTasks.map(task => {
-          return (
-            <File key={task.gid} gid={task.gid} />
-          )
-        })}
-      </div>
-    )
+  render() {
+
+    if (globalStore.allTasks.length === 0) {
+      return (
+        <Row style={{ justifyContent: 'center', height: '100%' }}>
+          <NonIdealState
+            title='Task list is empty'
+            description='Click to add new task'
+            visual={<div className="pt-non-ideal-state-visual pt-non-ideal-state-icon"><span className="pt-icon pt-icon-download"></span></div>}
+            action={<Button onClick={globalStore.openCreateTaskModal}>新建任务</Button>}
+          />
+        </Row>
+      )
+    } else {
+      return (
+        <div>
+          {globalStore.allTasks.map(task => {
+            return (
+              <File key={task.gid} gid={task.gid} />
+            )
+          })}
+        </div>
+      )
+    }
   }
 }
 

@@ -7,19 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 const React = require('react');
 const FileList_1 = require('../components/FileList');
-const aria2_store_1 = require('../stores/aria2.store');
 const mobx_react_1 = require('mobx-react');
 let TasksView = class TasksView extends React.Component {
     componentWillMount() {
-        console.log('will');
     }
     render() {
-        if (aria2_store_1.aria2Store.status === aria2_store_1.Aria2Status.OPENED) {
-            return (React.createElement(FileList_1.default, null));
-        }
-        else {
-            return React.createElement("div", null, "Disconnect");
-        }
+        return (React.createElement(FileList_1.default, null));
     }
 };
 TasksView = __decorate([

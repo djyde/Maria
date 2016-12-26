@@ -41,7 +41,7 @@ let SettingsView = class SettingsView extends React.Component {
     render() {
         return (React.createElement("div", {id: 'settings-view'}, 
             React.createElement("h6", {className: 'title'}, "Settings"), 
-            React.createElement("div", {style: { marginLeft: '2em' }}, 
+            React.createElement("div", {style: { margin: '0 auto' }}, 
                 React.createElement("label", {className: 'pt-label pt-inline'}, 
                     "下载目录", 
                     React.createElement(core_1.InputGroup, {disabled: true, defaultValue: storage_1.getGlobalOption().dir, inputRef: exports.settingsViewStore.savePathInputRef, rightElement: React.createElement(core_1.Button, {iconName: 'folder-open', className: 'pt-minimal', onClick: exports.settingsViewStore.choosePath})})), 
